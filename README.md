@@ -100,8 +100,27 @@ fork 之后 ，在railway的dashboard，选择 new project
 ```
 </details>
 
+### CloudFlare Workers反代代码（可分别用两个账号的应用程序名（`PROTOCOL`、`UUID`、`WS_PATH`保持一致），单双号天分别执行，那一个月就有550+550小时）
+
 <details>
 <summary>可以使用Cloudflare的Workers来中转流量，（支持VLESS\VMESS\Trojan-Go的WS模式）配置为：</summary>
+</details>
+
+<details>
+<summary>CloudFlare Workers单账户反代代码</summary>
+
+```js
+addEventListener(
+    "fetch",event => {
+        let url=new URL(event.request.url);
+        url.hostname="appname.herokuapp.com";
+        let request=new Request(url,event.request);
+        event. respondWith(
+            fetch(request)
+        )
+    }
+)
+```
 </details>
 
 <details>
